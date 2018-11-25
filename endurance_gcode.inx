@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<inkscape-extension xmlns="http://www.inkscape.org/namespace/inkscape/extension">
+	<_name>Endurance Laser G-code</_name>
+	<id>endurance_gcode.export.plugin</id>
+	<dependency type="executable" location="extensions">endurance_gcode.py</dependency>
+	<dependency type="executable" location="extensions">inkex.py</dependency>
+	<dependency type="executable" location="extensions">cubicsuperpath.py</dependency>
+	
+	<param name="active-tab" type="notebook">
+		<page name='technology' _gui-text='Laser G-code '>	
+		    <param name="laser_on" type="string" _gui-text="Laser ON command:  ">M106</param>		
+	        <param name="laser_off" type="string" _gui-text="Laser OFF command: ">M107</param>
+	        <param name="job_preambule" type="string" _gui-text="Job preambule:        "></param>
+            <param name="job_postambule" type="string" _gui-text="Job postambule:      "></param>
+            <param name="path_preambule" type="string" _gui-text="Path preambule:      ">G04 P100</param>
+            <param name="path_postambule" type="string" _gui-text="Path postambule:    "></param>
+            <param name="laser_power" type="int" max="255" min="10" _gui-text="Laser power:">255</param>
+            <param name="laser_on_pause" type="int" max="1000" min="0" _gui-text="Pause before laser on (ms):">100</param>	
+				<!--String above displays name parameter, and window for entering values-->
+			<param name="laser_off_pause" type="int" max="1000" min="0" _gui-text="Pause before laser off (ms):">100</param>	
+				<!--String above displays name parameter, and window for entering values-->
+            <param name="feed_speed" type="int" max="1000" min="50" _gui-text="Feed speed:">100</param>
+		</page>
+		
+		<page name='contoursAndFills' _gui-text='Paths &amp; Filling '>
+				<param name="paths" type="boolean" _gui-text="Paths">false</param>
+			<param name="approximation_tolerance" type="float" min="0.1" max="1000" _gui-text="					Approximation tolerance (um):">60</param>
+            <param name="linearity_tolerance" type="float" min="0.1" max="1000" _gui-text="					Linearity tolerance (deg):">2</param>
+            <param name="length_threshold" type="float" min="0.1" max="1000" _gui-text="					Length threshold (um):">10</param>
+            
+				<param name="filling" type="boolean" _gui-text="Filling">false</param>
+		    <param name="angle" type="float" min="-90.0" max="90.0" _gui-text="					Angle (deg):">45</param>
+				<!--String above displays name parameter, and window for entering values-->
+            <param name="distance" type="int" min="1" max="10000" _gui-text="					Distance (um):">5</param>  
+				<!--String above displays name parameter, and window for entering values-->
+		    <param name="fill-method"  _gui-text="Filling Method" type="optiongroup">
+        		<_option value="lines">Lines</_option>
+                <_option value="grid">Grid</_option>
+            </param>
+            <param name="fill-rule"  _gui-text="Filling Rule" type="optiongroup">
+       		    <_option value="odd">Odd</_option>
+                <_option value="even">Even</_option>
+            </param>
+		</page>
+		
+		<page name='export' _gui-text='Save As... '>	
+		    <param name="directory" type="string" _gui-text="Directory:"></param>	
+            <param name="file" type="string" _gui-text="Filename:">output.gcode</param>
+			<param name="add-numeric-suffix-to-filename" type="boolean" _gui-text="Add numeric suffix to filename">true</param>
+			<param name="delete-comments" type="boolean" _gui-text="Delete all comments in G-code">true</param>
+			<param name="show_markers" type="boolean" _gui-text="Show markers">True</param>
+			 
+		</page>
+    </param>
+	
+	<effect>
+		<object-type>path</object-type>
+                <effects-menu>
+                    <submenu _name="Endurance Laser G-code"/>
+                </effects-menu>
+    </effect>
+    <script>
+        <command reldir="extensions" interpreter="python">endurance_gcode.py</command>
+    </script>
+</inkscape-extension>
